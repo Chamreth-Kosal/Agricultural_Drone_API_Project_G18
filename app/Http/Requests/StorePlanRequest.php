@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
 
-class StoreDroneRequest extends FormRequest
+class StorePlanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,11 +29,16 @@ class StoreDroneRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type_of_drones' => 'required',
-            'model' => 'required',
-            'serial_number' => 'required',
-            'instructions' => 'required',
-            'price' => 'required',
+            'name' => [
+                'required',
+                Rule::unique('plans')-> ignore($this->id)
+            ],
+
+            'area' => 'required',
+            'datetime' => 'required',
+            'duration' => 'required',
+            'status' => 'required',
+            'drone_id' => 'required',
         ];
     }
 }

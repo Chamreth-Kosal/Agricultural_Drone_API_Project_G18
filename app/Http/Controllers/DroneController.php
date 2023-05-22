@@ -54,7 +54,12 @@ class DroneController extends Controller
     public function destroy(string $id)
     {
         $drone = Drone::find($id);
+        
+        if (! $drone){
+            return response()->json(['message' => 'Record not found'], 404);
+        }
+
         $drone->delete();
-        return response()->json(['success' => true, 'data' => $drone], 200);
+        return response()->json(['message' => 'Record deleted'], 200);
     }
 }

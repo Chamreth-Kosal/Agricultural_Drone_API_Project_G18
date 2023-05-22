@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('type_of_drones');
             $table->string('model');
-            $table->text('description');
-            $table->float('weight');
+            $table->string('serial_number');
+            $table->text('instructions');
             $table->float('price');
             $table->timestamps();
         });
