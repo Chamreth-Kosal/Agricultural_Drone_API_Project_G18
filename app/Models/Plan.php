@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Plan extends Model
 {
@@ -15,19 +16,19 @@ class Plan extends Model
         'datetime',
         'duration',
         'status',
-        'drone_id',
+
     ];
     
     public static function store($request, $id = null)
     {
-        $plan = $request->only(['name', 'area', 'datetime', 'duration', 'status', 'drone_id']);
+        $plan = $request->only(['name', 'area', 'datetime', 'duration', 'status']);
         $plan = self::updateOrCreate(['id' => $id], $plan);
 
         return $plan;
     }
 
-    public function drone():BelongsTo
+    public function drones():HasMany
     {
-        return $this->belongsTo(Drone::class);
+        return $this->hasMany(Drone::class);
     }
 }

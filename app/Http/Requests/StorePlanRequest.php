@@ -38,7 +38,7 @@ class StorePlanRequest extends FormRequest
             'datetime' => 'required',
             'duration' => 'required',
             'status' => 'required',
-            'drone_id' => 'required',
+            
         ];
     }
 }

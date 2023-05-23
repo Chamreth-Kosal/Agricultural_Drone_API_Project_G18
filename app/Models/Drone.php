@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Drone extends Model
@@ -15,18 +16,19 @@ class Drone extends Model
         'serial_number',
         'instructions',
         'price',
+        'plan_id'
     ];
     public static function store($request, $id = null)
     {
-        $drone = $request->only(['type_of_drones', 'instructions', 'model', 'serial_number', 'price']);
+        $drone = $request->only(['type_of_drones', 'instructions', 'model', 'serial_number', 'price', 'plan_id']);
         $drone = self::updateOrCreate(['id' => $id], $drone);
 
         return $drone;
     }
 
-    public function plans():HasMany
+    public function plan():BelongsTo
     {
-        return $this->hasMany(Plan::class);
+        return $this->belongsTo(Plan::class);
     }
 
 }
